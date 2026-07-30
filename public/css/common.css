@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Iran-yekan, B-nazanin;
+}
+
+@font-face {
+  font-family: B-Nazanin;
+  src: url(../fonts/B-NAZANIN.TTF);
+}
+
+@font-face {
+  font-family: Iran-Yekan;
+  src: url(../fonts/Qs_Iranyekan.ttf);
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  z-index: -1;
+  filter: brightness(0.5);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.home-bg {background-image: url('../img/pexels-craig-adderley-1563356.jpg')}
+
+.about-bg {background-image: url('../img/pexels-rahul-716398.jpg')}
+
+input::placeholder {
+  color: #000;
+}
+
+a {
+  text-decoration: none;
+}
+
+.active {
+  background-color: rgb(45, 92, 99);
+}
