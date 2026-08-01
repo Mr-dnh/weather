@@ -26,23 +26,231 @@
   width: 100%;
 }
 
-.nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 .home-bg {background-image: url('../img/pexels-craig-adderley-1563356.jpg')}
 
-.about-bg {background-image: url('../img/pexels-rahul-716398.jpg')}
-
 input::placeholder {
-  color: #000;
+  color: #8d8c8c;
 }
 
-a {
-  text-decoration: none;
+:root {
+  --panel: rgba(12, 34, 39, 0.42);
+  --panel-border: rgba(255, 255, 255, 0.16);
+  --text-soft: rgba(255, 255, 255, 0.78);
 }
 
-.active {
-  background-color: rgb(45, 92, 99);
+.search-card {
+  border-radius: 12px;
+}
+
+.search-row {
+  display: grid;
+  grid-template-columns: 1fr 48px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.search-row input,
+.search-row button {
+  border: 0;
+  outline: 0;
+  min-height: 48px;
+}
+
+.search-row input {
+  padding: 0 16px;
+  color: #18343b;
+  font-size: 1rem;
+}
+
+.search-row button {
+  background: #3a646e;
+  color: white;
+  cursor: pointer;
+}
+
+.search-row button:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.error-message {
+  margin-top: 8px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.weather-card {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background:
+    linear-gradient(180deg, rgba(89, 111, 126, 0.35), rgba(10, 40, 31, 0.72)),
+    url("../img/pexels-craig-adderley-1563356.jpg") center/cover;
+}
+
+.card-overlay {
+  padding: clamp(18px, 5vw, 34px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-header,
+.location,
+.hero-weather,
+.metric-grid,
+.forecast-strip article,
+.daily-forecast article {
+  display: flex;
+  align-items: center;
+}
+
+.card-header,
+.hero-weather {
+  justify-content: space-between;
+}
+
+.location {
+  gap: 8px;
+  font-weight: 800;
+}
+
+.date-line,
+.feels-like {
+  color: var(--text-soft);
+}
+
+.hero-weather h2 {
+  font-size: clamp(4.5rem, 18vw, 7rem);
+  line-height: 0.9;
+  font-weight: 300;
+  letter-spacing: -0.08em;
+}
+
+.condition {
+  margin-top: 8px;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.weather-icon-large {
+  width: min(38vw, 180px);
+  filter: drop-shadow(0 15px 24px rgba(0, 0, 0, 0.22));
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+}
+
+.metric-grid article {
+  padding: 18px 12px;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  text-align: center;
+  border-right: 1px solid var(--panel-border);
+}
+
+.metric-grid article:last-child {
+  border-right: 0;
+}
+
+.metric-grid span,
+.forecast-strip span,
+.daily-forecast span,
+.daily-forecast small {
+  color: var(--text-soft);
+  font-size: 0.84rem;
+}
+
+.forecast-strip,
+.daily-forecast {
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  background: rgba(5, 28, 25, 0.46);
+  backdrop-filter: blur(14px);
+}
+
+.forecast-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(62px, 1fr));
+  gap: 4px;
+  padding: 14px 10px;
+  overflow-x: auto;
+}
+
+.forecast-strip article {
+  flex-direction: column;
+  gap: 7px;
+  min-width: 58px;
+}
+
+.forecast-strip img,
+.daily-forecast img {
+  width: 40px;
+  height: 40px;
+}
+
+.daily-forecast {
+  padding: 18px;
+}
+
+.daily-forecast h3 {
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.daily-forecast article {
+  display: grid;
+  grid-template-columns: 1.2fr 42px 1fr auto;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.daily-forecast strong {
+  justify-self: end;
+}
+
+.loading-card {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    padding-inline: 10px;
+  }
+
+  .weather-card,
+  .card-overlay {
+    min-height: 660px;
+  }
+
+  .metric-grid article {
+    padding: 14px 8px;
+  }
+
+  .daily-forecast {
+    padding: 14px;
+  }
 }

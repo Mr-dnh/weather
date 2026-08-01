@@ -47,11 +47,11 @@ const Input = () => {
   };
 
   return (
-    <div>
-      <form style={container} onSubmit={(e) => e.preventDefault()}>
+    <form className="search-card" onSubmit={(event) => event.preventDefault()}>
+      <div className="search-row">
         <input
           type="text"
-          placeholder="نام شهر را وارد کنید..."
+          placeholder="Enter City Name..."
           value={context.name}
           onChange={handleName}
           style={input}
