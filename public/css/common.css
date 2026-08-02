@@ -81,10 +81,11 @@ input::placeholder {
 
 .weather-card {
   position: relative;
+  min-height: 100dvh;
   overflow: hidden;
   color: white;
   background:
-    linear-gradient(180deg, rgba(89, 111, 126, 0.35), rgba(10, 40, 31, 0.72)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(10, 40, 31, 0.72)),
     url("../img/pexels-craig-adderley-1563356.jpg") center/cover;
 }
 
@@ -211,6 +212,18 @@ input::placeholder {
   grid-template-columns: 1.2fr 42px 1fr auto;
   gap: 10px;
   padding: 8px 0;
+  position: relative;
+}
+
+.daily-forecast article:not(:last-child)::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: #ddd;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 .daily-forecast strong {

@@ -3,20 +3,16 @@ import City from "../components/cities";
 import CityContext from "../components/context";
 
 const App = () => {
-
   const [city, setCity] = useState();
   const [forecast, setForecast] = useState();
   const [name, setname] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleNewCity = data => {
-    setCity(data)
-  }
-
-  const header = {
-    color: "#FFF",
-    textAlign: "center",
+  const handleNewCity = (weatherData, forecastData) => {
+    setCity(weatherData);
+    setForecast(forecastData);
+    setError("");
   };
 
   return (

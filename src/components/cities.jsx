@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 import CityContext from "./context";
 import Input from "./input";
 
@@ -40,7 +40,7 @@ const groupDailyForecast = (forecastList = []) => {
 };
 
 const City = () => {
-  const { city } = useContext(CityContext);
+  const { city, forecast, loading } = useContext(CityContext);
 
   if (loading && !city) {
     return (
@@ -62,7 +62,7 @@ const City = () => {
   const currentWeather = city.weather[0];
   const hourlyForecast = forecast?.list?.slice(0, 6) || [];
   const dailyForecast = groupDailyForecast(forecast?.list);
-  const currentDate = new Date((city.dt + city.timezone) * 1000);
+  const currentDate = new Date((city.dt) * 1000);
   const feelsLike = Math.round(city.main.feels_like);
   const temperature = Math.round(city.main.temp);
   const windSpeed = Math.round(city.wind.speed * 3.6);
@@ -74,16 +74,16 @@ const City = () => {
         <header className="card-header">
           <div className="location">
             <i className="fa fa-map-marker" aria-hidden="true"></i>
-            <span>
+            <h1>
               {city.name}, {city.sys.country}
-            </span>
+            </h1>
           </div>
+        
+
+          <p className="date-line">
+            {dayFormatter.format(currentDate)} · {timeFormatter.format(currentDate)}
+          </p>
         </header>
-
-        <p className="date-line">
-          {dayFormatter.format(currentDate)} · {timeFormatter.format(currentDate)}
-        </p>
-
         <div className="hero-weather">
           <div>
             <h2>{temperature}°</h2>
@@ -97,18 +97,50 @@ const City = () => {
           />
         </div>
 
-        <div style={flex}>
-          <h2>
-            {Math.round(city.main.temp - 273.15)} <sup>°C</sup>
-          </h2>
-          <span>{city.weather[0].description}</span>
+        <div className="metric-grid">
+          <article>
+            <i className="fa fa-tint" aria-hidden="true"></i>
+            <span>Humidity</span>
+            <strong>{city.main.humidity}%</strong>
+          </article>
+          <article>
+            <i className="fa fa-leaf" aria-hidden="true"></i>
+            <span>Wind</span>
+            <strong>{windSpeed} km/h</strong>
+          </article>
+          <article>
+            <i className="fa fa-sun-o" aria-hidden="true"></i>
+            <span>Pressure</span>
+            <strong>{city.main.pressure} hPa</strong>
+          </article>
+        </div>
+
+        <div className="forecast-strip">
+          {hourlyForecast.map((item, index) => (
+            <article key={item.dt}>
+              <span>{index === 0 ? "Now" : timeFormatter.format(new Date(item.dt * 1000))}</span>
+              <img src={getWeatherIcon(item.weather[0].icon)} alt="" />
+              <strong>{Math.round(item.main.temp)}°</strong>
+            </article>
+          ))}
+        </div>
+
+        <div className="daily-forecast">
+          <h3>5-Day Forecast</h3>
+          {dailyForecast.map((day) => (
+            <article key={day.date.toISOString()}>
+              <span>{dayFormatter.format(day.date)}</span>
+              <img src={getWeatherIcon(day.noon.weather[0].icon)} alt="" />
+              <span>{day.noon.weather[0].main}</span>
+              <strong>
+                {Math.round(day.max)}° <small>{Math.round(day.min)}°</small>
+              </strong>
+            </article>
+          ))}
         </div>
       </div>
-    </Fragment>
+    </section>
     );
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+  };
 
 export default City;
